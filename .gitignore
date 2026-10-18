@@ -1,0 +1,80 @@
+# Dependencies, generated packages, diagnostics, and local caches
+node_modules/
+/dist/
+/artifacts/
+/.local/
+coverage/
+.cache/
+*.log
+*.tsbuildinfo
+__pycache__/
+*.py[cod]
+
+# Private Live2D packages (models, artwork, thumbnails, licenses, and archives).
+# Keep imported/downloaded packages together in these local-only directories.
+/live2d-assets/
+/models/
+/characters/
+/Type-H1_v2.0/
+
+# Cubism model binaries, projects, and supporting files, wherever they occur
+*.moc
+*.moc3
+*.cmo3
+*.can3
+*.model.json
+*.model3.json
+*.physics.json
+*.physics3.json
+*.pose.json
+*.pose3.json
+*.exp.json
+*.exp3.json
+*.motion3.json
+*.mtn
+*.cdi3.json
+*.userdata3.json
+*.vtube.json
+*.vtubestudio.json
+items_pinned_to_model.json
+*.2048/
+*.4096/
+*.8192/
+texture_*.png
+texture_*.jpg
+texture_*.jpeg
+texture_*.webp
+
+# Separately supplied Cubism SDK/runtime (not distributed with app source)
+[Ll]ive2[Dd][Cc]ubism[Cc]ore*
+CubismSdk*/
+CubismSDK*/
+
+# Downloaded asset bundles and original artwork
+*.zip
+*.7z
+*.rar
+*.tar
+*.tar.gz
+*.tgz
+*.psd
+*.psb
+*.clip
+*.sai
+*.sai2
+
+# Machine-specific settings, credentials, and editor/OS files
+.env
+.env.*
+!.env.example
+!.env.*.example
+/.aws/
+/.codex/
+/.agents/
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+*~

@@ -1,0 +1,45 @@
+import test from 'node:test';
+import assert from 'node:assert/strict';
+import { mkdtemp, mkdir, writeFile, rm, symlink } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import { inspectPackage } from '../lib/character-package.mjs';
+test('package discovery ignores symlinked external models and classifies presets separately',async t=> {
+ const root=await mkdtemp(join(tmpdir(),'chibi-package-'));t.after(()=>rm(root,{recursive:true,force:true}));
+ const dir=join(root,'Rig');await mkdir(join(dir,'Expressions'),{recursive:true});
+ await writeFile(join(dir,'rig.moc3'),'fixture');await writeFile(join(dir,'texture.png'),'fixture');
+ await writeFile(join(dir,'Rig.model3.json'),JSON.stringify({Version:3,FileReferences:{Moc:'rig.moc3',Textures:['texture.png']}}));
+ for(const name of ['Preset1','Happy'])await writeFile(join(dir,'Expressions',name+'.exp3.json'),JSON.stringify({Parameters:[{Id:'Hair',Value:1,Blend:'Add'}]}));
+ await symlink('/tmp',join(root,'external'));
+ const result=await inspectPackage(root);
+ assert.equal(result.length,1);assert.deepEqual(result[0].presets,['Preset1']);assert.deepEqual(result[0].textureSets,[]);
+});
+test('texture variants preserve source assets and remain loadable through the normal validator', async t=> {
+ const { materializeTextureSet }=await import('../lib/character-package.mjs');
+ const { inspectModel }=await import('../lib/model-library.mjs');
+ const { readFile }=await import('node:fs/promises');
+ const root=await mkdtemp(join(tmpdir(),'chibi-variant-'));t.after(()=>rm(root,{recursive:true,force:true}));
+ const dir=join(root,'Rig'), sample=join(root,'Sample Characters','Preset1Texture');
+ await mkdir(dir,{recursive:true});await mkdir(sample,{recursive:true});
+ const png=Buffer.from('iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mP8/x8AAwMCAO+jX3sAAAAASUVORK5CYII=','base64');
+ await writeFile(join(dir,'rig.moc3'),'synthetic moc');await writeFile(join(dir,'texture.png'),png);await writeFile(join(sample,'texture.png'),png);
+ await writeFile(join(dir,'Rig.model3.json'),JSON.stringify({Version:3,FileReferences:{Moc:'rig.moc3',Textures:['texture.png']}}));
+ const original=await readFile(join(dir,'Rig.model3.json'));
+ const [record]=await inspectPackage(root);assert.equal(record.textureSets[0].id,'Preset1');
+ const path=await materializeTextureSet(record,'Preset1',join(root,'cache'));
+ assert.notEqual(path,record.path);assert.equal((await inspectModel(path)).name,'Rig');
+ assert.deepEqual(await readFile(join(dir,'Rig.model3.json')),original);
+ await assert.rejects(materializeTextureSet(record,'Unknown',join(root,'cache')),/no longer available/);
+});
+test('variants reuse identical content, invalidate modified artwork and keep sibling-only presets',async t=>{
+ const {materializeTextureSet}=await import('../lib/character-package.mjs');const {inspectModel}=await import('../lib/model-library.mjs');
+ const root=await mkdtemp(join(tmpdir(),'chibi-content-'));t.after(()=>rm(root,{recursive:true,force:true}));const dir=join(root,'Rig'),sample=join(root,'Sample Characters');
+ await mkdir(dir);await mkdir(sample);await writeFile(join(dir,'rig.moc3'),'fixture');await writeFile(join(dir,'texture.png'),'synthetic');
+ await writeFile(join(dir,'Rig.model3.json'),JSON.stringify({Version:3,FileReferences:{Moc:'rig.moc3',Textures:['texture.png']}}));
+ await writeFile(join(sample,'Preset1.exp3.json'),JSON.stringify({Parameters:[{Id:'Hair',Value:1,Blend:'Add'}]}));
+ const [record]=await inspectPackage(root);assert.deepEqual(record.presets,['Preset1']);const cache=join(root,'.cache');
+ const a=await materializeTextureSet(record,'',cache),b=await materializeTextureSet(record,'',cache);assert.equal(a,b);
+ assert.equal((await inspectModel(a)).expressions.find(e=>e.name==='Preset1').kind,'appearance');
+ await writeFile(join(dir,'rig.moc3'),'changed compiled fixture');const [next]=await inspectPackage(root);assert.notEqual(next.fingerprint,record.fingerprint);
+ const c=await materializeTextureSet(next,'',cache);assert.notEqual(c,a);
+});

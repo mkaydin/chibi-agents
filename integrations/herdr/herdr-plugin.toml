@@ -1,0 +1,18 @@
+id = "ayla.companions"
+name = "Ayla Agent Companions"
+version = "0.2.0"
+min_herdr_version = "0.9.3"
+description = "Live2D desktop characters for recognized Herdr agents"
+platforms = ["linux"]
+
+[[actions]]
+id = "launch"
+title = "Open desktop companions"
+contexts = ["workspace"]
+command = ["node", "../../scripts/herdr-launch.mjs"]
+
+[[panes]]
+id = "desktop"
+title = "Ayla companions service"
+placement = "tab"
+command = ["node", "../../scripts/start.mjs", "--native-wayland", "--graphics", "nvidia"]

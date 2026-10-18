@@ -1,0 +1,7 @@
+import test from 'node:test';import assert from 'node:assert/strict';import {mkdtemp,readFile,writeFile,rm} from 'node:fs/promises';import {tmpdir} from 'node:os';import {join} from 'node:path';import {desktopEntry,installDesktopEntry} from '../lib/desktop-entry.mjs';
+test('desktop launcher keeps the icon path and quotes executable arguments safely',()=>{
+ const text=desktopEntry({root:'/Code/My project',icon:'/Code/My project/icon.png',node:'/usr/bin/node'});assert.match(text,/Exec="\/usr\/bin\/node" "\/Code\/My project\/scripts\/start.mjs"/);assert.match(text,/Icon=\/Code\/My project\/icon.png/);assert.match(text,/StartupWMClass=companion-studio/);assert.throws(()=>desktopEntry({root:'/Code/project\nTerminal=true',icon:'/icon.png'}),/Invalid desktop/);
+});
+test('desktop entry updates only owned files and avoids unnecessary rewrites',async()=>{
+ const folder=await mkdtemp(join(tmpdir(),'companion-icon-'));try{const path=join(folder,'companion-studio.desktop'),options={root:'/Code/Companion',icon:'/Code/Companion/icon.png'};assert.equal(await installDesktopEntry(path,options),true);assert.equal(await installDesktopEntry(path,options),false);assert.match(await readFile(path,'utf8'),/X-Companion-Studio-Owned=true/);await writeFile(path,'[Desktop Entry]\nName=Unrelated app\n');await assert.rejects(installDesktopEntry(path,options),/unrelated desktop/);}finally{await rm(folder,{recursive:true,force:true});}
+});
