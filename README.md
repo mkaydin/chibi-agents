@@ -2,7 +2,7 @@
   <img src="docs/icon.svg" alt="Companion Studio icon" width="88" height="88">
 </p>
 
-<h1 align="center">Companion Studio</h1>
+<h1 align="center">Chibi Agents Companion Studio</h1>
 
 <p align="center">Your projects, a little more alive.</p>
 <p align="center">Local Live2D desktop companions for coding agents. Bring your own characters.</p>
