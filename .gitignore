@@ -78,3 +78,12 @@ Thumbs.db
 *.swp
 *.swo
 *~
+
+# Internal planning, research, implementation notes, and model audits
+/*_PLAN.md
+/*_RESEARCH.md
+/*_ANALYSIS.md
+/*_REVIEW.md
+/*_COMPARISON.md
+/AYLA_INTEGRATION.md
+/DESIGN.md

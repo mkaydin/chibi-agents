@@ -74,4 +74,4 @@ node /absolute/path/to/chibi-agents/scripts/report-activity.mjs testing 3000
 node /absolute/path/to/chibi-agents/scripts/report-activity.mjs done 2200
 ```
 
-Run hooks inside the recognized agent's Herdr pane, forwarding `HERDR_PANE_ID` and `HERDR_SOCKET_PATH`. The helper authenticates the current occupant, sends one bounded action, and releases its binding. `idle` invokes reset. Hooks are an optional source of explicit intent; no per-agent configuration has been rewritten automatically. See [the behavior plan](../LIVE_BEHAVIOR_PLAN.md).
+Run hooks inside the recognized agent's Herdr pane, forwarding `HERDR_PANE_ID` and `HERDR_SOCKET_PATH`. The helper authenticates the current occupant, sends one bounded action, and releases its binding. `idle` invokes reset. Hooks are an optional source of explicit intent; no per-agent configuration has been rewritten automatically.

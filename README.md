@@ -242,4 +242,4 @@ Open the local URL printed by that command. This is an isolated UI fixture with 
 - **Missing animation or accessory:** check whether the imported model supplies it. Controls and reactions are capability-dependent.
 - **Model folder moved:** use the package's **Relink folder** or a saved character's **Relink model file** action.
 
-Startup diagnostics are written to `artifacts/startup.log`. See [design notes](DESIGN.md) for the interface decisions and [integration setup](integrations/SETUP.md) for agent configuration.
+Startup diagnostics are written to `artifacts/startup.log`. See [integration setup](integrations/SETUP.md) for agent configuration.
