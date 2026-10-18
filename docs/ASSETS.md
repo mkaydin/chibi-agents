@@ -38,3 +38,10 @@ and expressions. Coding-agent status signals select reactions. Model assets are
 not used for AI training or edited with generative AI. The screenshots document
 this rendering and playback; the artist’s license continues to govern the model
 and artwork. No artist endorsement is claimed.
+
+## Desktop usage screenshot
+
+`screenshots/desktop-companions.png` was supplied by the project owner. It shows
+five desktop companions with project-name labels. Live2D model by
+[0x4682B4](https://0x4682b4.com/), Customizable Chibi Model Type-H1.
+It contains rendered artwork, not model binaries or texture atlases.

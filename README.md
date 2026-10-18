@@ -18,7 +18,7 @@
 
 *Live2D model by [0x4682B4](https://0x4682b4.com/) — [Customizable Chibi Model Type-H1](https://0x4682b4.booth.pm/items/4991289). Character artwork is shown in a GUI screenshot; model files are not included.*
 
-**This repository contains the application system only.** Live2D models, character artwork, textures, and Cubism Core are not included. Screenshots use illustrative project data. The example gallery and narrow preview show the separately supplied Type-H1 model credited above; installation and settings screenshots show the model-free interface.
+**This repository contains the application system only.** Live2D models, character artwork, textures, and Cubism Core are not included. Screenshots use illustrative project data. The example gallery, narrow preview, and desktop screenshot show the separately supplied Type-H1 model credited above; installation and settings screenshots show the model-free interface.
 
 <details>
 <summary>See the character preview in a narrow window</summary>
@@ -108,6 +108,10 @@ Appearance editing, expressions, motions, accessories, and activity props depend
 ## Example usage
 
 ### A companion for each project
+
+![Five chibi desktop companions labeled with their projects: GCLM, chibi-agents, vexa-deck, COM, and Ayla](docs/screenshots/desktop-companions.png)
+
+*Live2D model by [0x4682B4](https://0x4682b4.com/) — [Customizable Chibi Model Type-H1](https://0x4682b4.booth.pm/items/4991289). User-provided desktop screenshot; model files are not included.*
 
 Start Herdr with a few recognized root agents, then run `npm start`. Each detected root agent gets its own companion; internal subagents are not represented separately.
 
