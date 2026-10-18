@@ -1,6 +1,6 @@
 # Herdr + MCP setup
 
-Start the desktop application as before, with `--native-wayland --graphics software`. It connects to the default Herdr socket, or accepts `--herdr-socket /path/to/herdr.sock`. The socket and reconnect control are also available in the menu. `--no-herdr` retains the manual preview studio.
+Start the desktop application with `npm start` (or `npm start -- --graphics auto` on a non-NVIDIA setup). It connects to the default Herdr socket, or accepts `--herdr-socket /path/to/herdr.sock`. The socket and reconnect control are also available in the menu. `--no-herdr` retains the manual preview studio.
 
 Each detected Herdr root agent gets a character, with no fixed four-agent cap; the preview studio is separate. Agents inherit the studio's locally selected model when first created. Select an agent in the controls to assign a different model, hide/show it, or choose expressions for its state. Model assignments and mappings are saved locally. Internal subagents are not separately represented.
 
@@ -13,18 +13,18 @@ herdr plugin link "$PWD/integrations/herdr"
 herdr plugin action invoke ayla.companions.launch
 ```
 
-The plugin owns a foreground service pane; it does not use a detached startup daemon. Installing/linking the plugin is not done automatically. The default manifest targets the verified KDE native-Wayland/software configuration. Adjust its launcher arguments for other tested setups.
+The plugin owns a foreground service pane; it does not use a detached startup daemon. Installing/linking the plugin is not done automatically. The default manifest requests native Wayland and NVIDIA rendering. Adjust its launcher arguments for other tested setups.
 
 ## MCP bridge
 
-Run `node /absolute/path/to/waifu-agents-mcp/scripts/mcp-bridge.mjs` as a **stdio MCP server** in each agent client. No extra npm package or API key is required. Forward `HERDR_PANE_ID` and `HERDR_SOCKET_PATH` from the agent's Herdr pane; do not copy another pane's values. The bridge contacts the running desktop through its private local socket.
+Run `node /absolute/path/to/chibi-agents/scripts/mcp-bridge.mjs` as a **stdio MCP server** in each agent client. No extra npm package or API key is required. Forward `HERDR_PANE_ID` and `HERDR_SOCKET_PATH` from the agent's Herdr pane; do not copy another pane's values. The bridge contacts the running desktop through its private local socket.
 
 Codex example (replace the absolute project path):
 
 ```toml
 [mcp_servers.ayla_avatar]
 command = "node"
-args = ["/absolute/path/to/waifu-agents-mcp/scripts/mcp-bridge.mjs"]
+args = ["/absolute/path/to/chibi-agents/scripts/mcp-bridge.mjs"]
 env_vars = ["HERDR_PANE_ID", "HERDR_SOCKET_PATH"]
 ```
 
@@ -35,7 +35,7 @@ OpenCode local-server example:
   "mcp": {
     "ayla_avatar": {
       "type": "local",
-      "command": ["node", "/absolute/path/to/waifu-agents-mcp/scripts/mcp-bridge.mjs"],
+      "command": ["node", "/absolute/path/to/chibi-agents/scripts/mcp-bridge.mjs"],
       "enabled": true
     }
   }
@@ -70,8 +70,8 @@ The companion now consumes `completion_seq`, `state_labels` and named activity/p
 The existing MCP `avatar_animate` tool supports `thinking`, `reading`, `searching`, `editing`, `testing`, `running`, `done` and `error` alongside the original actions. A generic local tool hook can call:
 
 ```bash
-node /absolute/path/to/waifu-agents-mcp/scripts/report-activity.mjs testing 3000
-node /absolute/path/to/waifu-agents-mcp/scripts/report-activity.mjs done 2200
+node /absolute/path/to/chibi-agents/scripts/report-activity.mjs testing 3000
+node /absolute/path/to/chibi-agents/scripts/report-activity.mjs done 2200
 ```
 
 Run hooks inside the recognized agent's Herdr pane, forwarding `HERDR_PANE_ID` and `HERDR_SOCKET_PATH`. The helper authenticates the current occupant, sends one bounded action, and releases its binding. `idle` invokes reset. Hooks are an optional source of explicit intent; no per-agent configuration has been rewritten automatically. See [the behavior plan](../LIVE_BEHAVIOR_PLAN.md).

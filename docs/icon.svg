@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="128" height="128" viewBox="0 0 128 128" role="img" aria-labelledby="title">
+  <title id="title">Companion Studio</title>
+  <rect x="4" y="4" width="120" height="120" rx="30" fill="#24242e"/>
+  <path d="M31 52V30l24 14h18l24-14v22c8 8 12 18 12 29 0 22-20 33-45 33S19 103 19 81c0-11 4-21 12-29Z" fill="#c4a5b4"/>
+  <path d="m37 43 10 6-10 8Zm54 0-10 6 10 8Z" fill="#846f80"/>
+  <path d="M43 74v9m42-9v9" stroke="#24242e" stroke-width="7" stroke-linecap="round"/>
+  <path d="m59 89 5 4 5-4" fill="none" stroke="#24242e" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
