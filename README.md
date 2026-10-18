@@ -14,9 +14,20 @@
   <a href="#herdr-and-mcp">Herdr &amp; MCP</a>
 </p>
 
-![Companion Studio — dark interface and character library](docs/screenshots/page-looks.png)
+![Companion Studio with example Type-H1 chibi looks in the library and preview](docs/screenshots/example-looks.png)
 
-**This repository contains the application system only.** Live2D models, character artwork, textures, and Cubism Core are not included. Screenshots show the actual interface with illustrative project data and an empty model library; no private model artwork is embedded.
+*Live2D model by [0x4682B4](https://0x4682b4.com/) — [Customizable Chibi Model Type-H1](https://0x4682b4.booth.pm/items/4991289). Character artwork is shown in a GUI screenshot; model files are not included.*
+
+**This repository contains the application system only.** Live2D models, character artwork, textures, and Cubism Core are not included. Screenshots use illustrative project data. The example gallery and narrow preview show the separately supplied Type-H1 model credited above; installation and settings screenshots show the model-free interface.
+
+<details>
+<summary>See the character preview in a narrow window</summary>
+
+<img src="docs/screenshots/example-preview-narrow.png" alt="Type-H1 chibi in Companion Studio's narrow-window preview" width="390">
+
+Live2D model by [0x4682B4](https://0x4682b4.com/). The artwork belongs to its creator; it is not an application asset licensed for reuse.
+
+</details>
 
 ## What it does
 
@@ -76,6 +87,8 @@ npm start -- --core /absolute/path/to/live2dcubismcore.min.js
 The selection is saved locally, so later launches only need `npm start`.
 
 ## First character
+
+![First-run interface before importing your own model](docs/screenshots/page-looks.png)
 
 1. Open **Settings** and choose Cubism Core if you have not already done so.
 2. Open **Looks → Import package folder** and select your extracted Live2D package. Keep its manifest, model binary, textures, and referenced files together.
@@ -177,7 +190,7 @@ chibi-agents/
 ├── integrations/    Optional Herdr plugin and MCP setup
 ├── scripts/         Launch, diagnostics, and source packaging
 ├── tests/           Automated checks
-├── docs/            Documentation icon and model-free screenshots
+├── docs/            Documentation icon and attributed GUI screenshots
 ├── live2d-assets/    Your local model packages — ignored
 └── .local/          Your local runtime and development assets — ignored
 ```
@@ -185,6 +198,18 @@ chibi-agents/
 Settings use Electron's local `ayla-companions` user-data directory for compatibility; `COMPANION_DATA_DIR` overrides it. On Linux this is normally `~/.config/ayla-companions/`. Generated texture variants and recovery backups stay local. Character-settings exports contain local model references and appearance values, not the model files themselves.
 
 Ordinary images outside ignored model directories can still be versioned for application UI and documentation. Check `git status` before publishing; keep complete private packages in the ignored directories.
+
+## Model artist credit
+
+**Live2D model by [0x4682B4](https://0x4682b4.com/).** The example characters shown in the gallery and preview screenshots are customized appearances of **Customizable Chibi Model Type-H1 (v2.0)**.
+
+- [Artist's product page](https://0x4682b4.booth.pm/items/4991289)
+- [Model documentation](https://0xlive2dmodels.glycoproduction.com/models/type-h1/)
+- [Artist's license](https://0xlive2dmodels.glycoproduction.com/license/)
+
+The artist retains ownership of the model and artwork. No affiliation or endorsement is implied. The application source does not include or grant rights to the model, its textures, or Cubism Core. Obtain your own model license from the artist.
+
+The app imports the supplied Live2D model and plays its authored animations and expressions locally. Coding-agent status signals select reactions; the model assets are not used for AI training or edited with generative AI. The screenshots demonstrate that rendering and playback. Use of the model and its artwork remains subject to the artist’s license.
 
 ## Development and source packaging
 
